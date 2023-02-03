@@ -7,6 +7,6 @@ Usually modern Windows platforms works inside with double extended precision (80
 
 Read the file ChangesToDELPHI11code.txt to see the changes made in de initial DELPHI executable code.
 
-if you only want te executable file this is the one: CalPFUEnglishUHR11.exe
+if you only want the executable file this is the one: CalPFUEnglishUHR11.exe
 
 In this new version, the shown data is rounded to eighteen significant digits of precision, the actual precision of the FPU.
