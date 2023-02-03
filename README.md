@@ -7,4 +7,4 @@ Usually modern Windows platforms works inside with double extended precision (80
 
 Read the file ChangesToDELPHIcode.txt to see the changes made in de initial DELPHI executable code.
 
-if you only want te executable file this is the one: CalPFUEnglishUHR.exe
+if you only want te executable file this is the one: CalPFUEnglishUHR10.exe
