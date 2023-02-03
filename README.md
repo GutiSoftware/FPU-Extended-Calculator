@@ -9,4 +9,4 @@ Read the file ChangesToDELPHI11code.txt to see the changes made in de initial DE
 
 if you only want the executable file this is the one: CalPFUEnglishUHR.exe
 
-There is a version (CalPFUEnglishHRround.exe), that shown data rounded to eighteen significant digits of precision, the actual precision of the FPU.
+There is a version (CalPFUEnglishHRround.exe), that shown data rounded to only eighteen significant digits of precision, the actual precision of the FPU.
