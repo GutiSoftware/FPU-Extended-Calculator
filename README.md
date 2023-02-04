@@ -5,7 +5,7 @@ Initial DELPHI project modified with FPU ASM code to get the same precision in d
 
 Usually modern Windows platforms works inside with double extended precision (80 bits) but for data presentation limits them to doubled precision only (64 bits). 
 
-Read the file ChangesToDELPHI11code.txt to see the changes made in de initial DELPHI executable code.
+Read the file ChangesToDELPHIcodeUHR.txt to see the changes made in de initial DELPHI executable code.
 
 if you only want the executable file this is the one: CalPFUEnglishUHR.exe
 
