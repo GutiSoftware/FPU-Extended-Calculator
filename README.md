@@ -11,6 +11,6 @@ if you only want the executable file this is the one: CalFPUEnglishUHR21.exe
 
 There is a version (CalPFUEnglishHRround.exe), that shown data rounded to only eighteen significant digits of precision, the actual precision of the FPU.
 
-Added version .20 obteined compiling with SysUtils.dcu modified with the new code. A new post with this file will be aded soon!  
+Added version .21 obteined compiling with SysUtils.dcu modified with the new code. A new post with this file will be aded soon!  
 
-Added file: FPUCodecommented.pdf to explain the improve code in the new version 2.1
+Added file: ChangesInThecomledDELPHIcodeToGetExtendedPrecision.txt to explain the improve code in the new version 2.1
