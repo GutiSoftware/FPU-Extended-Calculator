@@ -13,4 +13,4 @@ There is a version (CalPFUEnglishHRround.exe), that shown data rounded to only e
 
 Added version .20 obteined compiling with SysUtils.dcu modified with the new code. A new post with this file will be aded soon!  
 
-Added file: FPUCodecommented.pdf to explin the code
+Added file: FPUCodecommented.pdf to explain the improve code in the new version 2.1
