@@ -1,0 +1,51 @@
+00409A03 | 90                    | nop                                     			//avoid original code frndint  (round)            
+00409A04 | 90                    | nop         
+______________________________________________________________________________
+In the original code, the real number that had to be shown, had been previously rounded and then multiplied by 100000000000000000, and is into the st0
+FPU register just ready to be store in memory in 18 digits BCD (Binary Coded Decimal) format.
+With the new code we avoid the initial rounded code (frndint noped) and then obtain the decimal part and store it in memory just before do the same with
+the integer part to get an extra precision of the real number. Then we avoid again other rounded made in the original code (in normal asm). Indeed the
+memory space used for the last rounded is used to insert the new code.                            
+_____________________________________________________________________________________________________________________________________
+00409A26 | 8D7B 03               	| lea edi,dword ptr ds:[ebx+3]            	//unchanged (originalcode)
+00409A29 | EB 37                 	| jmp 409A62                               		//jum to the new FPU code
+00409A2B | 90                    	| nop                                     
+00409A2C | BA 0A000000         | mov edx,A                               		//now 12 pairs of figures (BDC 10+2)
+00409A31 | 9B                    	| fwait                                    		//unchanged (originalcode)
+00409A32 | 8A442A E7            	  mov al,byte ptr ds:[edx+ebp-19]        
+00409A36 | 88C4                  	| mov ah,al                               
+00409A38 | C0E8 04               	| shr al,4                                
+00409A3B | 80E4 0F               	| and ah,F                                 
+00409A3E | 66:05 3030            	| add ax,3030                             
+00409A42 | 66:AB                 	| stosw                                    
+00409A44 | 4A                    	| dec edx                                
+00409A45 | 75 EB                 	| jne 409A32                              
+00409A47 | 32C0                  	| xor al,al                               
+00409A49 | AA                   	| stosb                                    
+00409A4A | 8B7D F8               	| mov edi,dword ptr ss:[ebp-8]             
+00409A4D | 037D 08              	| add edi,dword ptr ss:[ebp+8]     	//unchanged (originalcode)       
+00409A50 | 79 3B                 	| jns 409A8D                         		//jmp to avoid round      
+00409A52 | 31C0                  	| xor eax,eax                              
+00409A54 | E9 77FFFFFF           | jmp 4099D0    				//long jump (original code)                           
+00409A59 | 41                    	| inc ecx                                 		//water marck :)
+00409A5A | 72 61                 	| jb 409ABD                                
+00409A5C | 2047 75               	| and byte ptr ds:[edi+75],al              
+00409A5F | 74 69                 	| je 409ACA                               
+00409A61 | 90                    	| nop                                     
+00409A62 | D9C0                  	| fld st(0),st(0)                         		//store value in st0 also in st1
+00409A64 | D9C0                  	| fld st(0),st(0)                          		//store value in st0 also in st1
+00409A66 | 9B                    	| fwait                                    		//Check pending unmasked floating-point exceptions
+00409A67 | D97D E6               	| fnstcw word ptr ss:[ebp-1A]             	//save FPU register control word in memory
+00409A6A | 66:814D E6 000C  | or word ptr ss:[ebp-1A],C00              	//set the RC bits to the FPU register control word to (11) -> truncate
+00409A70 | D96D E6               	| fldcw word ptr ss:[ebp-1A]               	//load the FPU register control word with the new set bits
+00409A73 | D9FC                  	| frndint                                  		//with these setting frndint make a truncate of the st0 register value
+00409A75 | DEE9                  	| fsubp st(1),st(0)                        		//subtract st1 minus st0
+00409A77 | 66:B8 6400            	| mov ax,64                               		//store $64 (decimal 100) in ax
+00409A7B | 66:8945 E6            	| mov word ptr ss:[ebp-1A],ax           	//move ax to memory
+00409A7F | DE4D E6               	| fimul st(0),word ptr ss:[ebp-1A]       //multiply value in st0 by decimal 100
+00409A82 | DF75 E8               	| fbstp tword ptr ss:[ebp-18],st(0)      //store decimal part of st0 value into 18 digits BCD (Binary Coded Decimal) format, store it in memory and pop st0
+00409A85 | DF75 E9              	| fbstp tword ptr ss:[ebp-17],st(0)      //store integer part of st0 value into 18 digits BCD (Binary Coded Decimal) format, store it in memory and pop st0
+00409A88 | 9B                    	| fwait                                    		//Check pending unmasked floating-point exception
+00409A89 | DBE3                  	| fninit                                  			//Initialize FPU
+00409A8B | EB 9F                	| jmp 409A2C                               		//jmp back to original code
+00409A8D | BF 14000000          | mov edi,14                               		//19 figures plus (,) 
