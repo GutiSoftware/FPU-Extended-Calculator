@@ -7,7 +7,7 @@ Usually modern Windows platforms works inside with double extended precision (80
 
 Take a look the new repository: Extended-precision-in-Delphi for changes in the new code.
 
-if you only want the last executable file this with Maximon amount of significant digits this is the one: CalFPUEnglish25MaxDec.exe
+if you only want the last executable file this with maximun amount of significant digits this is the one: CalFPUEnglish25MaxDig.exe
 
 There is a version (CalFPUEnglishRound.exe), that shown data rounded to only eighteen significant digits of precision, the actual precision of the FPU.
 
