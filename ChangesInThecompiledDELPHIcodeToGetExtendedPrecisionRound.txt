@@ -1,0 +1,21 @@
+00409A50 | 79 3B                 		| jns 409A8D                              //jum to avoid trunc and round
+00409A52 | 31C0                  		| xor eax,eax                            
+00409A54 | E9 77FFFFFF           		| jmp 4099D0                             
+00409A59 | 3B7D 0C               		| cmp edi,dword ptr ss:[ebp+C]           
+00409A5C | 72 03                 		| jb 409A61                            
+00409A5E | 8B7D 0C               		| mov edi,dword ptr ss:[ebp+C]           
+00409A61 | 83FF 12               		| cmp edi,12                          
+00409A64 | 73 27                	 	| jae 409A8D                          
+00409A66 | 807C3B 03 35          	| cmp byte ptr ds:[ebx+edi+3],35      
+00409A6B | 72 25                 		| jb 409A92                              
+00409A6D | C6443B 03 00          	| mov byte ptr ds:[ebx+edi+3],0       
+00409A72 | 4F                    		| dec edi                              
+00409A73 | 78 0D                 		| js 409A82                              
+00409A75 | FE443B 03             		| inc byte ptr ds:[ebx+edi+3]           
+00409A79 | 807C3B 03 39          	| cmp byte ptr ds:[ebx+edi+3],39        
+00409A7E | 77 ED                 		| ja 409A6D                               
+00409A80 | EB 1F                 		| jmp 409AA1                              
+00409A82 | 66:C743 03 3100       	| mov word ptr ds:[ebx+3],31               
+00409A88 | FF45 F8               		| inc dword ptr ss:[ebp-8]              
+00409A8B | EB 14                 		| jmp 409AA1                               
+00409A8D | BF 12000000           	| mov edi,12                             
