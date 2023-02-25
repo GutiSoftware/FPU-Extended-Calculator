@@ -11,6 +11,6 @@ If you only want the last executable file with maximun amount of significant dig
 
 The file PatchFPUCalculator10.exe patch any new caculator compiled with the Delphi project (Folder: DelphiProjectCalculator)
 
-There is a Folder also with te delphi project for de Patccher 
+There is a Folder also with the delphi project for de Patccher 
 
 Use the Help button into the exe files to konow how they work and how to use tehm!
