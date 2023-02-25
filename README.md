@@ -9,7 +9,7 @@ Take a look the new repository: Extended-precision-in-Delphi for changes in the 
 
 If you only want the last executable file with maximun amount of significant digits this is the one: FPUCalculator64.exe
 
-The file PatchFPUCalculator10.exe patch any new caculator compiled with the Delphi project (Folder: DelphiProjectFPUCalculator)
+The file PatchFPUCalculator10.exe patch any new caculator compiled with the Delphi project (Folder: DelphiProjectCalculator)
 
 There is a Folder also with te delphi project for de Patccher 
 
