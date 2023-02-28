@@ -7,6 +7,8 @@ Usually modern Windows platforms works inside with double extended precision (80
 
 Take a look the new repository: Extended-precision-in-Delphi for changes in the new code.
 
-If you only want an executable file with maximun amount of significant digits this is the one: FPUCalculator65.exe
+Use the file FPUCalculator78.exe to patch your calculator!
 
-Use the Help button into the exe file to konow how they work and how to use it!
+If you only want an executable file already patched with maximun amount of significant digits this is the one: PATCHFPUCalculator78.exe
+
+Use the Help button into the programs to konow how they work and how to use it!
