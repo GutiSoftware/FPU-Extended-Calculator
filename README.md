@@ -2,7 +2,7 @@
 
 Double Extended precision FPU calculator (80 bits).
 
-Usually modern Windows platforms works inside with double extended precision (80 bits) but for data presentation limits them to doubled precision only (64 bits).
+Usually modern Windows platforms works inside with double extended precision (80 bits) but for data presentation limits them to doubled precision (only 64 bits).
 
 DELPHI project modified with FPU ASM code to get the same precision in data presentation than in data calculation.
 
