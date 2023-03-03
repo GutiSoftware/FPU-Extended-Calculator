@@ -1,0 +1,55 @@
+(*) In the original code, the real number that had to be shown, had been previously rounded and then transform in a integer
+with at least 15 significant digits (doubled precision), and it is into the st0 FPU register just ready to be store in memory
+in 18 digits BCD (Binary Coded Decimal) format. With the new, if the flag of precision is not set, we avoid the initial 
+rounded code and then obtain the decimal part and store it in memory just before do the same with the integer part to get
+an extra precision of the real number. Then we avoid again other rounded made in the original code (in normal asm). Indeed 
+the memory space used for that is used now to insert the new code.
+
+00409C0B | EB 79                 | jmp 409C86                                    | Previous frndint (now only if selected in program menu)
+00409C0D | 8B7D FC               | mov edi,dword ptr ss:[ebp-4]                  |
+00409C10 | DBAF 54B84700         | fld st(0),tword ptr ds:[edi+47B854]           |
+00409C16 | D8D9                  | fcomp st(0),st(1)                             |
+00409C18 | 9B                    | fwait                                         |		  WITHOUT CHANGE
+00409C19 | DD7D F6               | fnstsw word ptr ss:[ebp-A]                    |		  original code
+00409C1C | 9B                    | fwait                                         |	       	
+00409C1D | 66:F745 F6 0041       | test word ptr ss:[ebp-A],4100                 |
+00409C23 | 74 09                 | je 409C2E                                     |
+00409C25 | DAB7 60B84700         | fidiv st(0),dword ptr ds:[edi+47B860]         |
+00409C2B | FF45 F8               | inc dword ptr ss:[ebp-8]                      |
+00409C2E | 8D7B 03               | lea edi,dword ptr ds:[ebx+3]                  |(*)
+00409C31 | D9C0                  | fld st(0),st(0)                               |value store in st0 store also in st1
+00409C33 | D9C0                  | fld st(0),st(0)                               |value store in st1 store also in st2
+00409C35 | 9B                    | fwait                                         |
+00409C36 | D97D E6               | fnstcw word ptr ss:[ebp-1A]                   |save FPU register control word, in memory
+00409C39 | 66:814D E6 000C       | or word ptr ss:[ebp-1A],C00                   |set the RC bits to the FPU register control word to (11) -> truncate
+00409C3F | D96D E6               | fldcw word ptr ss:[ebp-1A]                    |load the FPU register control word with the new set bits
+00409C42 | D9FC                  | frndint                                       |with these setting frndint truncate st0 register value
+00409C44 | DEE9                  | fsubp st(1),st(0)                             |subtract st1 minus st0 and store in st0 (decimal part)
+00409C46 | 66:B8 6400            | mov ax,64                                     |store $64 (decimal 100) in ax 
+00409C4A | 66:8945 E6            | mov word ptr ss:[ebp-1A],ax                   |move ax to memory
+00409C4E | DE4D E6               | fimul st(0),word ptr ss:[ebp-1A]              |multiply value in st0 by decimal 100
+00409C51 | DF75 E8               | fbstp tword ptr ss:[ebp-18],st(0)             |store decimal part of st0 value into 18 digits BCD (Binary Coded Decimal) 
+00409C54 | DF75 E9               | fbstp tword ptr ss:[ebp-17],st(0)             |store integer part of st0 value into 18 digits BCD (Binary Coded Decimal)
+00409C57 | 9B                    | fwait                                         |Check pending unmasked floating-point exception
+00409C58 | DBE3                  | fninit                                        |Initialize FPU (very important!)
+00409C5A | BA 0A000000           | mov edx,A                                     |now 12 pairs of figures (BDC 10+2) 
+00409C5F | 8A442A E7             | mov al,byte ptr ds:[edx+ebp-19]               |
+00409C63 | 88C4                  | mov ah,al                                     |
+00409C65 | C0E8 04               | shr al,4                                      |
+00409C68 | 80E4 0F               | and ah,F                                      |		
+00409C6B | 66:05 3030            | add ax,3030                                   |		 
+00409C6F | 66:AB                 | stosw                                         |
+00409C71 | 4A                    | dec edx                                       |		 WITHOUT CHANGE
+00409C72 | 75 EB                 | jne 409C5F                                    |		 original code
+00409C74 | 32C0                  | xor al,al                                     |
+00409C76 | AA                    | stosb                                         |
+00409C77 | 8B7D F8               | mov edi,dword ptr ss:[ebp-8]                  |
+00409C7A | 037D 08               | add edi,dword ptr ss:[ebp+8]                  |
+00409C7D | 79 16                 | jns 409C95                                    |
+00409C7F | 31C0                  | xor eax,eax                                   |
+00409C81 | E9 52FFFFFF           | jmp 409BD8                                    |
+00409C86 | 3A05 B8D14700         | cmp al,byte ptr ds:[47D1B8]                   |is the flag set?
+00409C8C | 75 02                 | jne 409C90                                    |if set avoid round
+00409C8E | D9FC                  | frndint                                       |if not set round
+00409C90 | E9 78FFFFFF           | jmp 409C0D                                    |
+00409C95 | BF 14000000           | mov edi,14                                    |Now 19 figures plus (,)
