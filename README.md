@@ -12,6 +12,6 @@ In the file CodeChanges.txt new code can be checked.
 
 Use the file FPUExtendedCalculator81.exe to patch your calculator!
 
-If you only want an executable file already patched with maximun amount of significant digits this is the one: PATCHFPUExtendedCalculator81.exe
+If you only want an executable file already patched this is the one: PATCHFPUExtendedCalculator81.exe
 
 Use the Help button into the programs to konow how they work and how to use them!
