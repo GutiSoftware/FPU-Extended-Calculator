@@ -14,4 +14,4 @@ Use the file FPUExtendedCalculator81.exe to patch your calculator!
 
 If you only want an executable file already patched this is the one: PATCHFPUExtendedCalculator81.exe
 
-Use the Help button into the programs to konow how they work and how to use them!
+Use the Help button into the programs to know how they work and how to use them!
