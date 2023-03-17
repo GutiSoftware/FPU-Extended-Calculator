@@ -12,6 +12,6 @@ In the file CodeChanges.txt new code can be checked.
 
 Use the file FPUExtendedCalculator90.exe to patch your calculator!
 
-If you only want an executable file already patched this is the one: PATCHFPUExtendedCalculator81.exe
+If you only want an executable file already patched this is the one: PATCHFPUExtendedCalculator90.exe
 
 Use the Help button into the programs to know how they work and how to use them!
