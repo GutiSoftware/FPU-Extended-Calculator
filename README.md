@@ -10,7 +10,7 @@ Take a look the new repository: Extended-precision-in-Delphi for changes in the 
 
 In the file CodeChanges.txt new code can be checked.
 
-Use the file FPUExtendedCalculator81.exe to patch your calculator!
+Use the file FPUExtendedCalculator90.exe to patch your calculator!
 
 If you only want an executable file already patched this is the one: PATCHFPUExtendedCalculator81.exe
 
