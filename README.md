@@ -8,7 +8,7 @@ DELPHI project modified with FPU ASM code to get the same precision in data pres
 
 Take a look the new repository: Extended-precision-in-Delphi for changes in the new code.
 
-In the file CodeChanges.txt new code can be checked. Aplication: ExtendedPrecisionFPUdemo28.exe added to see new FPU coded working! 
+In the file CodeChanges.txt new code can be checked. Aplication: ExtendedPrecisionFPUdemo29.exe added to see new FPU coded working! 
 
 Use the file FPUExtendedCalculator91.exe to patch your calculator!
 
